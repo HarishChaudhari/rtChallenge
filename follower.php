@@ -50,17 +50,22 @@
 		curl_close($channel);
 		
 		$obj = json_decode($response);
-		echo "<div id='divList' style='height: 150px; width: 500px; max-height: 150px; max-width: 500px;'>";
+		echo "<div id='divList' style='height: 150px; width: 700px; max-height: 150px; max-width: 700px;'>";
 		echo "<font style='text-decoration:underline;'>Followers of $sname:</font><br><br>";
+		echo "<table>";
 		foreach ($obj as $item)
 		{
 			$name = $item->name;	//Get name
 			$screenname = $item->screen_name;	//Get screen name
+			$profilepic = $item->profile_image_url_https;	//Get profile image url(HTTPS)
 			
-			echo "Name: ".$name." | Screen Name: ".$screenname." | ";
-			?><a href="#" onClick="ajaxLoad('<?php echo $screenname?>')">View Tweets</a><hr><?php
+			echo "<tr>";
+			echo "<td style='vertical-align: middle;'><img src=$profilepic title='Profile Picture'></td>";
+			echo "<td style='vertical-align: middle;'>Name: ".$name." | Screen Name: ".$screenname." | ";
+			?><a href="#" onClick="ajaxLoad('<?php echo $screenname?>')">View Tweets</a><?php
+			echo "</td></tr>";
 		}
-		echo "</div>";
+		echo "</table></div>";
 	}
 ?>
 <script type="text/javascript">
