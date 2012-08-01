@@ -12,40 +12,45 @@
 	$twitterObj = new EpiTwitter($consumer_key, $consumer_secret);
 	$oauth_token = $_GET['oauth_token'];
 
+	echo "<div class='container'>";
+
 	//If there is no token then display sign in link
 	if($oauth_token == '')
 	{
 		//Get auth token and build Sign In url.
 		$url = $twitterObj->getAuthorizationUrl();
-		//Just a text
-		echo "<h2>Twitter Timeline Challenge</h2>";
-		echo "<table height='93%'><tr><td class='leftpane' style='width:20%; max-width:20%; padding-right:5px;' >";
-		echo "<a href='#' class='know'>Know More</a>";
-		echo "<div class='panel'>";
-		echo "This is just an assignment done for <br> rtCamp Solutions Pvt. Ltd.";
-		echo "<p><strong>Part-1: User Timeline</strong></p>
- 			  <ol>
-					<li>Start => User visit your script page.
-					<li>He will be asked to connect using his Twitter account (Hint: Twitter Auth).
-					<li>Once authenticated, your script will pull latest 10 tweets form his \"home\" timeline.
-					<li>10 tweets will be displayed using a jQuery-slideshow.
-			  </ol>
-			  <p><strong>Part-2: Followers Timeline</strong></p>
-			  <ol>
-					<li>Below jQuery-slideshow (in step#4 from part-1), display list 10 followers (you can take any 10 random followers).
-					<li>When user will click on a follower name, 10 tweets from that follower's user-timeline will be displayed in same jQuery-slider, without page refresh (use AJAX).";
-		echo "</ol>";
-		echo "<br>Source http://rtcamp.com/careers/</div>";
-		echo "</td><td style='vertical-align: top; padding-left:15px;'>";
 
-		echo "<div>";
-		echo "Dear User,<br>";
-		echo "<a href='$url'>Please Sign In through Your Twitter Account</a>";
-		echo "</div> </td></tr></table>";
+		echo "<h2>Twitter Timeline Challenge</h2>";
+		//Just a text
+		echo "<div class='left_col'>";
+			echo "<a href='#' class='know'>Know More</a>";
+			echo "<div class='panel'>";
+				echo "This is just an assignment done for <br> rtCamp Solutions Pvt. Ltd.";
+				echo "<p><strong>Part-1: User Timeline</strong></p>
+					  <ol>
+							<li>Start => User visit your script page.
+							<li>He will be asked to connect using his Twitter account (Hint: Twitter Auth).
+							<li>Once authenticated, your script will pull latest 10 tweets form his \"home\" timeline.
+							<li>10 tweets will be displayed using a jQuery-slideshow.
+					  </ol>
+					  <p><strong>Part-2: Followers Timeline</strong></p>
+					  <ol>
+							<li>Below jQuery-slideshow (in step#4 from part-1), display list 10 followers (you can take any 10 random followers).
+							<li>When user will click on a follower name, 10 tweets from that follower's user-timeline will be displayed in same jQuery-slider, without page refresh (use AJAX).";
+				echo "</ol>";
+				echo "<br>Source http://rtcamp.com/careers/";
+			echo "</div>";	//Panel div ends
+		echo "</div>";	//Left col div ends
 		
-		echo "<div class='footer'><hr> Designed For rtCamp Solutions Pvt. Ltd.<br>
-			  rtCamp is a registered trademark of rtCamp Soulutions Pvt. Ltd.
-			  </div>";
+		echo "<div class='right_col'>";
+
+				echo "Dear User,<br>";
+				echo "<a href='$url'>Please Sign In through Your Twitter Account</a>";
+			
+			echo "<div class='footer'>";
+				echo "<hr> Designed For rtCamp Solutions Pvt. Ltd.<br>rtCamp is a registered trademark of rtCamp Solutions Pvt. Ltd.";
+			echo "</div>";
+		echo "</div>";	//Right col div ends
 	}
 	//Otherwise if user got token then the to & fro part starts
 	else
@@ -61,31 +66,27 @@
 		$username = $twitterInfo->screen_name;
 		$profilepic = $twitterInfo->profile_image_url;
 		
-		echo "<table height='100%'>";
-		echo "<tr><td class='leftpane' style='width:20%; max-width:20%;'>";
-		
-		echo "<div id='divWelcome' align='center'>Logged in as ".$username;
-		echo "<br><img src=$profilepic title='Profile Picture'></div>";
-		echo "</td><td style='vertical-align: top; padding-left:15px;'>";
-		
-		echo "<h2>Twitter Timeline Challnege</h2>";
-		
-		//Include tweet page which contains tweet grabbing code
-		include 'tweet.php';
-		echo "Tweet Showcase:";		
-		echo "<div id='divTweetContainer' class='slideshowTweet'>";
-		getTweets($username, 'tweet');
-		echo "</div>";
-		
-		//Include follower page which contains followers grabbing code
-		include 'follower.php';
-		getFollo($username);
-		
-		echo "</td></tr></table>";
-		echo "<div class='footer'><hr> Designed For rtCamp Solutions Pvt. Ltd.<br>
-			  rtCamp is a registered trademark of rtCamp Soulutions Pvt. Ltd.
-			  </div>";
+		echo "<div class='left_col'>";
+			echo "<div id='divWelcome' align='center'>Logged in as ".$username;
+			echo "<br><img src=$profilepic title='Profile Picture'></div>";
+		echo "</div>";	//Left col div ends
+
+		echo "<div class='right_col'>";		
+			echo "<h2>Twitter Timeline Challnege</h2>";
+			
+			//Include tweet page which contains tweet grabbing code
+			include 'tweet.php';
+			echo "Tweet Showcase:";		
+			echo "<div id='divTweetContainer' class='slideshowTweet'>";
+				getTweets($username, 'tweet');
+			echo "</div>";
+			
+			//Include follower page which contains followers grabbing code
+			include 'follower.php';
+			getFollo($username);
+		echo "</div>";	//Right col div ends
 	}
+	echo "</div>";	// Container div ends
 ?>
 
 <!DOCTYPE HTML>
