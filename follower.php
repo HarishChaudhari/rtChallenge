@@ -52,20 +52,19 @@
 		$obj = json_decode($response);
 		echo "<div id='divList' style='height: 150px; width: 700px; max-height: 150px; max-width: 700px;'>";
 		echo "<font style='text-decoration:underline;'>Followers of $sname:</font><br><br>";
-		echo "<table>";
 		foreach ($obj as $item)
 		{
 			$name = $item->name;	//Get name
 			$screenname = $item->screen_name;	//Get screen name
 			$profilepic = $item->profile_image_url_https;	//Get profile image url(HTTPS)
 			
-			echo "<tr>";
-			echo "<td style='vertical-align: middle;'><img src=$profilepic title='Profile Picture'></td>";
-			echo "<td style='vertical-align: middle;'>Name: ".$name." | Screen Name: ".$screenname." | ";
-			?><a href="#" onClick="ajaxLoad('<?php echo $screenname?>')">View Tweets</a><?php
-			echo "</td></tr>";
+			echo "<div>";
+				echo "<img src=$profilepic style='vertical-align:middle;' title='Profile Picture'>";
+				echo "<span style='padding-left:10px;'>Name: ".$name." | Screen Name: ".$screenname." | ";
+				?><a href="#" onClick="ajaxLoad('<?php echo $screenname?>')">View Tweets</a><?php
+			echo "</span></div><hr>";
 		}
-		echo "</table></div>";
+		echo "</div>";
 	}
 ?>
 <script type="text/javascript">
